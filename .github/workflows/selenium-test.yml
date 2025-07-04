@@ -83,16 +83,9 @@ jobs:
             --disable-warnings \
             -v
 
-      - name: Upload HTML Test Report
+      - name: Upload Full Report Folder (HTML + Screenshots)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: selenium-test-report
-          path: reports/report.html
-
-      - name: Upload Failure Screenshots (if any)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: selenium-screenshots
-          path: reports/screenshots/*.png
+          name: selenium-reports
+          path: reports/

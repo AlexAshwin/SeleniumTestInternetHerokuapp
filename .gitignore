@@ -1,0 +1,9 @@
+# Virtual environments
+.venv/
+.qodo/
+# Python cache files
+__pycache__/
+.pytest_cache/
+
+# Report files
+reports/

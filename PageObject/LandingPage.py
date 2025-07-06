@@ -11,8 +11,9 @@ class LandingPage(BasePage):
     # Example XPath locators for elements on the landing page
     heading = "//h1[@class='heading']"
     abtesting = "//a[@href='/abtest']"
-
     add_remove_elements = "//a[@href='/add_remove_elements/']"
+    broken_image = "//a[@href='/broken_images']"
+    challenging_dom = "//a[@href='/challenging_dom']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -86,5 +87,14 @@ class LandingPage(BasePage):
         :return: BrokenImagesPage object.
         """
         from PageObject.BrokenImagePage import BrokenImagePage
-        self.click("//a[@href='/broken_images']")
+        self.click(self.broken_image)
         return BrokenImagePage(self.driver)
+
+    def go_to_challenging_dom(self):
+        """
+        Navigate to the Challenging DOM page.
+        :return: ChallengingDOMPage object.
+        """
+        from PageObject.ChallengingDomPage import ChallengingDomPage
+        self.click(self.challenging_dom)
+        return ChallengingDOMPage(self.driver)

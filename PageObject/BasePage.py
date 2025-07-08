@@ -136,3 +136,13 @@ class BasePage:
         """
         alert = self.driver.switch_to.alert
         alert.send_keys(text)
+
+    def execute_script(self, script: str, *args):
+        """
+        Execute a JavaScript script in the context of the current page.
+
+        :param script: The JavaScript code to execute.
+        :param args: Optional arguments to pass to the script.
+        :return: The result of the script execution.
+        """
+        return self.driver.execute_script(script, *args)

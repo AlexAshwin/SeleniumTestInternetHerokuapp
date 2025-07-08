@@ -97,4 +97,4 @@ class LandingPage(BasePage):
         """
         from PageObject.ChallengingDomPage import ChallengingDomPage
         self.click(self.challenging_dom)
-        return ChallengingDOMPage(self.driver)
+        return ChallengingDomPage(self.driver)

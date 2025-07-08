@@ -7,7 +7,7 @@ class ChallengingDomPage(BasePage):
     """
     Page Object for the Challenging DOM page.
     """
-
+    heading = "//h3"
     button1 = "//a[@class='button']"
     button2 = "//a[@class='button alert']"
     button3 = "//a[@class='button success']"

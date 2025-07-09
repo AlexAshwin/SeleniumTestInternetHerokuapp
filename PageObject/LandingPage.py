@@ -15,6 +15,8 @@ class LandingPage(BasePage):
     broken_image = "//a[@href='/broken_images']"
     challenging_dom = "//a[@href='/challenging_dom']"
     checkboxes = "//a[@href='/checkboxes']"
+    context_menu = "//a[@href='/context_menu']"
+
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
@@ -107,3 +109,12 @@ class LandingPage(BasePage):
         from PageObject.CheckboxesPage import CheckboxesPage
         self.click(self.checkboxes)
         return CheckboxesPage(self.driver)
+
+    def go_to_context_menu(self):
+        """
+        Navigate to the Context Menu page.
+        :return: ContextMenuPage object.
+        """
+        from PageObject.ContextMenuPage import ContextMenuPage
+        self.click(self.context_menu)
+        return ContextMenuPage(self.driver)

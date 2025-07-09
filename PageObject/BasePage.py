@@ -1,3 +1,6 @@
+from argparse import Action
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -146,3 +149,22 @@ class BasePage:
         :return: The result of the script execution.
         """
         return self.driver.execute_script(script, *args)
+
+    def context_click(self, xpath: str):
+        """
+        Perform a context click (right-click) on an element using XPath.
+
+        :param xpath: The XPath locator.
+        """
+        element = self.wait_for_element_visible(xpath)
+        actions = ActionChains(self.driver)
+        actions.context_click(element).perform()
+
+    def get_alert_text(self):
+        """
+        Get the text of the current alert.
+
+        :return: The text of the alert.
+        """
+        alert = self.driver.switch_to.alert
+        return alert.text

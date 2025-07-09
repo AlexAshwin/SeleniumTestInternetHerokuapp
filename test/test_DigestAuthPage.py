@@ -1,5 +1,6 @@
-import logging
 import json
+import logging
+
 import pytest
 from PageObject.LandingPage import LandingPage
 
@@ -12,9 +13,9 @@ with open(test_data_path) as f:
     test_data = json.load(f)
     cred_list = test_data['data']['basic_auth_credentials']
 
-@pytest.mark.order(3)
+@pytest.mark.order(2)
 @pytest.mark.usefixtures("browser_instance")
-class TestAddRemoveElementPage:
+class TestDigestAuthPage:
 
     @pytest.mark.parametrize("test_case", cred_list)
     @pytest.fixture(autouse=True)
@@ -30,14 +31,15 @@ class TestAddRemoveElementPage:
         username = test_case['username']
         password = test_case['password']
 
-        self.basic_auth_page = self.landing_page.go_to_basic_auth(username=username, password=password)
+        self.digest_auth_page = self.landing_page.go_to_digest_auth(username=username, password=password)
 
     @pytest.mark.parametrize("test_case", cred_list)
-    def test_basic_auth(self, test_case):
+    def test_digest_auth_page_heading(self,test_case):
         """
-        Verify basic authentication works correctly.
+        Verify the Digest Authentication page heading.
         """
-        logger.info(f"Testing Basic Auth with credentials: {test_case}")
-        message = self.basic_auth_page.get_page_message()
-        logger.info(f"Message found: {message}")
-        assert "Congratulations" in message, f"Login failed for: {test_case}"
+        expected_message = "Congratulations! You must have the proper credentials"
+        actual_message = self.digest_auth_page.get_page_heading()
+        logger.info(f"Page heading: {actual_message}")
+        assert expected_message.lower() == actual_message, \
+            f"Expected heading '{expected_message}', but got '{actual_message}'"

@@ -15,13 +15,8 @@ class BasicAuthPage(BasePage):
         super().__init__(driver)
         self.driver = driver
 
-    def go_to_basic_auth(self):
-        """
-        Clicks the Basic Auth link/button to navigate to the Basic Authentication page.
-        """
-        self.click(self.basicauth)
 
-    def get_page_heading(self):
+    def get_page_message(self):
         """
         Get the main heading of the Basic Authentication page.
         :return: Main heading text.

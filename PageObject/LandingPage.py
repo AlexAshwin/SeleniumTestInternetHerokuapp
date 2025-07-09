@@ -16,6 +16,7 @@ class LandingPage(BasePage):
     challenging_dom = "//a[@href='/challenging_dom']"
     checkboxes = "//a[@href='/checkboxes']"
     context_menu = "//a[@href='/context_menu']"
+    digest_auth = "//a[@href='/digest_auth']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -118,3 +119,24 @@ class LandingPage(BasePage):
         from PageObject.ContextMenuPage import ContextMenuPage
         self.click(self.context_menu)
         return ContextMenuPage(self.driver)
+
+    def go_to_digest_auth(self,username, password):
+        """
+        Navigate to the Basic Authentication page with provided credentials.
+        :param username:
+        :param password:
+        :return:
+        """
+        from PageObject.BasicAuthPage import BasicAuthPage
+        # Inject credentials into the link using JavaScript
+        self.driver.execute_script(f'''
+            const link = document.querySelector("a[href='/digest_auth']");
+            if (link) {{
+                link.href = "https://{username}:{password}@the-internet.herokuapp.com/digest_auth";
+            }}
+        ''')
+
+        # Click the modified link
+        self.click(f"//a[@href='https://{username}:{password}@the-internet.herokuapp.com/digest_auth']")
+
+        return BasicAuthPage(self.driver)

@@ -30,6 +30,14 @@ class BasePage:
         """
         self.driver.get(url)
 
+    def get_url(self) -> str:
+        """
+        Get the current URL of the page.
+
+        :return: The current URL as a string.
+        """
+        return self.driver.current_url
+
     def find_element(self, xpath: str):
         """
         Find a single element on the page using XPath.
@@ -140,6 +148,15 @@ class BasePage:
         alert = self.driver.switch_to.alert
         alert.send_keys(text)
 
+    def get_alert_text(self):
+        """
+        Get the text of the current alert.
+
+        :return: The text of the alert.
+        """
+        alert = self.driver.switch_to.alert
+        return alert.text
+
     def execute_script(self, script: str, *args):
         """
         Execute a JavaScript script in the context of the current page.
@@ -160,11 +177,3 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.context_click(element).perform()
 
-    def get_alert_text(self):
-        """
-        Get the text of the current alert.
-
-        :return: The text of the alert.
-        """
-        alert = self.driver.switch_to.alert
-        return alert.text

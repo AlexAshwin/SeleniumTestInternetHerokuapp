@@ -1,5 +1,4 @@
 import logging
-import time
 
 import pytest
 from PageObject.LandingPage import LandingPage

@@ -14,7 +14,7 @@ class LandingPage(BasePage):
     add_remove_elements = "//a[@href='/add_remove_elements/']"
     broken_image = "//a[@href='/broken_images']"
     challenging_dom = "//a[@href='/challenging_dom']"
-
+    checkboxes = "//a[@href='/checkboxes']"
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
@@ -98,3 +98,12 @@ class LandingPage(BasePage):
         from PageObject.ChallengingDomPage import ChallengingDomPage
         self.click(self.challenging_dom)
         return ChallengingDomPage(self.driver)
+
+    def go_to_checkboxes(self):
+        """
+        Navigate to the Checkboxes page.
+        :return: CheckboxesPage object.
+        """
+        from PageObject.CheckboxesPage import CheckboxesPage
+        self.click(self.checkboxes)
+        return CheckboxesPage(self.driver)

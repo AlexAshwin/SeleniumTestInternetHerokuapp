@@ -6,7 +6,7 @@ class DigestAuthPage(BasePage):
     Page Object for the Digest Authentication page.
     """
     # XPath locators for elements on the Digest Authentication Page
-    heading = "//h3"
+    message = "//div[@class='example']//p"
 
 
     def __init__(self, driver):
@@ -20,10 +20,10 @@ class DigestAuthPage(BasePage):
         """
         return self.get_url()
 
-    def get_page_heading(self):
+    def get_page_message(self):
         """
         Get the main heading of the Digest Authentication page.
         :return: Main heading text.
         """
-        return self.get_text(self.heading)
+        return self.get_text(self.message)
 

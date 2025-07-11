@@ -33,14 +33,6 @@ jobs:
           SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
         options: --shm-size=2g
 
-      firefox:
-        image: selenium/node-firefox:4.21.0
-        env:
-          SE_EVENT_BUS_HOST: selenium-hub
-          SE_EVENT_BUS_PUBLISH_PORT: 4442
-          SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-        options: --shm-size=2g
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -76,11 +68,7 @@ jobs:
         run: |
           pytest \
             --use_grid=true \
-            --browser_name=chrome,firefox \
-            --html=reports/report.html \
-            --self-contained-html \
-            --maxfail=3 \
-            --disable-warnings \
+            -n=auto \
             -v
 
       - name: Upload Full Report Folder (HTML + Screenshots)

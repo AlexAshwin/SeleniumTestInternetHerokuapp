@@ -17,6 +17,7 @@ class LandingPage(BasePage):
     checkboxes = "//a[@href='/checkboxes']"
     context_menu = "//a[@href='/context_menu']"
     digest_auth = "//a[@href='/digest_auth']"
+    disappearing_elements = "//a[@href='/disappearing_elements']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -140,3 +141,12 @@ class LandingPage(BasePage):
         self.click(f"//a[@href='https://{username}:{password}@the-internet.herokuapp.com/digest_auth']")
 
         return BasicAuthPage(self.driver)
+
+    def go_to_disappearing_elements(self):
+        """
+        Navigate to the Disappearing Elements page.
+        :return: DisappearingElementsPage object.
+        """
+        from PageObject.DisappearingElementsPage import DisappearingElementsPage
+        self.click(self.disappearing_elements)
+        return DisappearingElementsPage(self.driver)

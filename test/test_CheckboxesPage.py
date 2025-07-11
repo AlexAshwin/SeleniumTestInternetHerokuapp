@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.order(2)
 @pytest.mark.usefixtures("browser_instance")
-class TestABTestingPage:
+class TestCheckboxPage:
     @pytest.fixture(autouse=True)
     def setup(self, request, browser_instance):
         """

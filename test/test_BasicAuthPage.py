@@ -14,7 +14,7 @@ with open(test_data_path) as f:
 
 @pytest.mark.order(3)
 @pytest.mark.usefixtures("browser_instance")
-class TestAddRemoveElementPage:
+class TestBasicAuthPage:
 
     @pytest.mark.parametrize("test_case", cred_list)
     @pytest.fixture(autouse=True)

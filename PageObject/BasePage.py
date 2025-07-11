@@ -38,6 +38,12 @@ class BasePage:
         """
         return self.driver.current_url
 
+    def refresh_page(self):
+        """
+        Refresh the current page.
+        """
+        self.driver.refresh()
+
     def find_element(self, xpath: str):
         """
         Find a single element on the page using XPath.

@@ -5,6 +5,8 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
+
 
 class BasePage:
     """
@@ -195,3 +197,35 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.drag_and_drop(source, target).perform()
 
+    def dropdown_select(self, dropdown_xpath: str, option_text: str):
+        """
+        Select an option from a dropdown by visible text.
+
+        :param dropdown_xpath: The XPath locator of the dropdown element.
+        :param option_text: The text of the option to select.
+        """
+        dropdown_element = self.wait_for_element_visible(dropdown_xpath)
+        select = Select(dropdown_element)
+        select.select_by_visible_text(option_text)
+
+    def get_attribute(self,xpath: str, attribute_name: str):
+        """
+        Get the value of an attribute from an element using XPath.
+
+        :param xpath: The XPath locator.
+        :param attribute_name: The name of the attribute to retrieve.
+        :return: The value of the specified attribute.
+        """
+        element = self.find_element(xpath)
+        return element.get_attribute(attribute_name)
+
+    def get_selected_option_text(self, dropdown_xpath: str):
+        """
+        Get the text of the currently selected option in a dropdown.
+
+        :param dropdown_xpath: The XPath locator of the dropdown element.
+        :return: The text of the selected option.
+        """
+        dropdown_element = self.wait_for_element_visible(dropdown_xpath)
+        select = Select(dropdown_element)
+        return select.first_selected_option.text

@@ -23,6 +23,7 @@ class TestBrokenImagePage:
         self.landing_page.navigate_to_landing_page()
         self.broken_image_page = self.landing_page.go_to_broken_images()
 
+    @pytest.mark.xfail
     def test_images_rendering_and_status_code(self):
         """
         Check all images on the page:

@@ -1,5 +1,5 @@
 from PageObject.BasePage import BasePage
-from urllib.parse import urlparse
+
 
 class DigestAuthPage(BasePage):
     """

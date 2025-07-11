@@ -1,6 +1,8 @@
 from PageObject.BasePage import BasePage
 import pytest
 
+from PageObject.DigestAuthPage import DigestAuthPage
+
 
 class LandingPage(BasePage):
     """
@@ -128,7 +130,7 @@ class LandingPage(BasePage):
         :param password:
         :return:
         """
-        from PageObject.BasicAuthPage import BasicAuthPage
+        from PageObject.DigestAuthPage import DigestAuthPage
         # Inject credentials into the link using JavaScript
         self.driver.execute_script(f'''
             const link = document.querySelector("a[href='/digest_auth']");
@@ -140,7 +142,7 @@ class LandingPage(BasePage):
         # Click the modified link
         self.click(f"//a[@href='https://{username}:{password}@the-internet.herokuapp.com/digest_auth']")
 
-        return BasicAuthPage(self.driver)
+        return DigestAuthPage(self.driver)
 
     def go_to_disappearing_elements(self):
         """

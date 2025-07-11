@@ -4,7 +4,7 @@ from PageObject.LandingPage import LandingPage
 
 logger = logging.getLogger(__name__)
 
-@pytest.mark.order(2)
+@pytest.mark.order(10)
 @pytest.mark.usefixtures("browser_instance")
 class TestDisappearingElementsPage:
     @pytest.fixture(autouse=True)

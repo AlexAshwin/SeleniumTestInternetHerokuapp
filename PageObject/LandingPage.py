@@ -20,6 +20,7 @@ class LandingPage(BasePage):
     context_menu = "//a[@href='/context_menu']"
     digest_auth = "//a[@href='/digest_auth']"
     disappearing_elements = "//a[@href='/disappearing_elements']"
+    drag_and_drop = "//a[@href='/drag_and_drop']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -152,3 +153,12 @@ class LandingPage(BasePage):
         from PageObject.DisappearingElementsPage import DisappearingElementsPage
         self.click(self.disappearing_elements)
         return DisappearingElementsPage(self.driver)
+
+    def go_to_drag_and_drop(self):
+        """
+        Navigate to the Drag and Drop page.
+        :return: DragAndDropPage object.
+        """
+        from PageObject.DragAndDropPage import DragAndDropPage
+        self.click(self.drag_and_drop)
+        return DragAndDropPage(self.driver)

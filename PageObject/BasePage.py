@@ -183,3 +183,15 @@ class BasePage:
         actions = ActionChains(self.driver)
         actions.context_click(element).perform()
 
+    def drag_and_drop(self, source_xpath: str, target_xpath: str):
+        """
+        Perform a drag and drop operation from one element to another using XPath.
+
+        :param source_xpath: The XPath locator of the source element.
+        :param target_xpath: The XPath locator of the target element.
+        """
+        source = self.wait_for_element_visible(source_xpath)
+        target = self.wait_for_element_visible(target_xpath)
+        actions = ActionChains(self.driver)
+        actions.drag_and_drop(source, target).perform()
+

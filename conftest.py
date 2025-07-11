@@ -13,12 +13,6 @@ logger = logging.getLogger(__name__)
 # ---------------------------
 def pytest_addoption(parser):
     parser.addoption(
-        "--browser_name",
-        action="store",
-        default="chrome,firefox",
-        help="Comma-separated list of browsers to test with, e.g. chrome,firefox"
-    )
-    parser.addoption(
         "--use_grid",
         action="store",
         default="false",
@@ -30,63 +24,28 @@ def pytest_addoption(parser):
         datefmt="%H:%M:%S"
     )
 
-
-# ---------------------------
-# This function is a pytest hook that dynamically parameterizes tests based on the browser_name command-line option,
-# allowing tests to run with different browser configurations
-# ---------------------------
-def pytest_generate_tests(metafunc):
-    # Check if the test function uses the 'browser_name' fixture
-    if "browser_name" in metafunc.fixturenames:
-        # Retrieve the value of the '--browser_name' command-line option and split by commas
-        selected_browsers = metafunc.config.getoption("browser_name").split(",")
-        # Parameterize the test so it runs once for each specified browser
-        # (after stripping whitespace and converting to lowercase)
-        metafunc.parametrize("browser_name", [b.strip().lower() for b in selected_browsers])
-
-
-# ---------------------------
-# Browser Instance Fixture
-# returns a WebDriver instance based on the specified browser name.
-# ---------------------------
 @pytest.fixture(scope="function")
-def browser_instance(browser_name, request) -> Generator[WebDriver, None, None]:
+def browser_instance(request) -> Generator[WebDriver, None, None]:
     use_grid = request.config.getoption("use_grid").strip().lower() == "true"
     grid_url = os.getenv("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
 
-    driver = None
+    options = webdriver.ChromeOptions()
+    #options.add_argument("--disable-infobars")
+    #options.add_argument("--start-maximized")
+    options.add_argument("--headless=new")
 
-    if browser_name == "chrome":
-        options = webdriver.ChromeOptions()
-        options.add_argument("--disable-infobars")
-        options.add_argument("--start-maximized")
-        options.add_experimental_option("prefs", {
-            "credentials_enable_service": False,
-            "profile.password_manager_enabled": False,
-            "profile.password_manager_leak_detection": False
-        })
+    options.add_experimental_option("prefs", {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False,
+        "profile.password_manager_leak_detection": False
+    })
 
-        driver = webdriver.Remote(command_executor=grid_url, options=options) if use_grid else webdriver.Chrome(
-            options=options)
-
-    elif browser_name == "firefox":
-        options = webdriver.FirefoxOptions()
-        options.add_argument("--start-maximized")
-        options.set_preference("signon.rememberSignons", False)
-        options.set_preference("signon.autofillForms", False)
-        options.set_preference("security.insecure_field_warning.contextual.enabled", False)
-
-        driver = webdriver.Remote(command_executor=grid_url, options=options) if use_grid else webdriver.Firefox(
-            options=options)
-
-    else:
-        raise ValueError(f"Unsupported browser: {browser_name}")
+    driver = webdriver.Remote(command_executor=grid_url, options=options) if use_grid else webdriver.Chrome(options=options)
 
     driver.implicitly_wait(5)
-    request.node._driver = driver  # attach to node for screenshot capture
+    request.node._driver = driver  # for screenshot capturing
     yield driver
     driver.quit()
-
 
 # ---------------------------
 # Screenshot Capture on Failure
@@ -113,7 +72,7 @@ def pytest_runtest_makereport(item):
                 )
                 extra.append(pytest_html.extras.html(html))
 
-    report.extra = extra
+    report.extras = extra
 
 
 # ---------------------------

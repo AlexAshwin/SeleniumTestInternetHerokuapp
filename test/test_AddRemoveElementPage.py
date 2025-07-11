@@ -60,7 +60,6 @@ class TestAddRemoveElementPage:
         logger.info(f"New delete buttons count after adding multiple: {new_count}")
         assert new_count == initial_count + add_count, "Multiple elements were not added successfully"
 
-    @pytest.mark.smoke
     def test_delete_multiple_elements(self):
         """
         Verify deleting multiple elements works correctly.

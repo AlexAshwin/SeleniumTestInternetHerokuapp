@@ -22,6 +22,7 @@ class LandingPage(BasePage):
     disappearing_elements = "//a[@href='/disappearing_elements']"
     drag_and_drop = "//a[@href='/drag_and_drop']"
     dropdown = "//a[@href='/dropdown']"
+    dynamic_content = "//a[@href='/dynamic_content']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -172,3 +173,12 @@ class LandingPage(BasePage):
         from PageObject.DropdownPage import DropdownPage
         self.click(self.dropdown)
         return DropdownPage(self.driver)
+
+    def go_to_dynamic_content(self):
+        """
+        Navigate to the Dynamic Content page.
+        :return: DynamicContentPage object.
+        """
+        from PageObject.DynamicContentPage import DynamicContentPage
+        self.click(self.dynamic_content)
+        return DynamicContentPage(self.driver)

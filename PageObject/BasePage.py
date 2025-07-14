@@ -1,5 +1,6 @@
 from argparse import Action
 
+from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
@@ -63,6 +64,18 @@ class BasePage:
         :return: List of WebElements.
         """
         return self.driver.find_elements(By.XPATH, xpath)
+
+    def wait_for_element_to_disappear(self,xpath:str, timeout: int = None ):
+        """
+        Wait for the loader element to disappear (become invisible or removed from DOM).
+        """
+        wait_time = timeout if timeout is not None else self.timeout
+        try:
+            WebDriverWait(self.driver, wait_time).until(
+                EC.invisibility_of_element_located((By.XPATH,xpath))
+            )
+        except TimeoutException:
+            raise TimeoutException("Loader did not disappear within the timeout.")
 
     def wait_for_element_visible(self, xpath: str, timeout: int = None):
         """
@@ -229,3 +242,52 @@ class BasePage:
         dropdown_element = self.wait_for_element_visible(dropdown_xpath)
         select = Select(dropdown_element)
         return select.first_selected_option.text
+
+    def is_element_selected(self, xpath: str) -> bool:
+        """
+        Check if an element is selected (e.g., checkbox or radio button).
+
+        :param xpath: The XPath locator of the element.
+        :return: True if the element is selected, False otherwise.
+        """
+        element = self.find_element(xpath)
+        return element.is_selected() if element else False
+
+    def is_element_visible(self, xpath: str) -> bool:
+        """
+        Check if an element is visible on the page.
+
+        :param xpath: The XPath locator of the element.
+        :return: True if the element is visible, False otherwise.
+        """
+        try:
+            element = self.find_element(xpath)
+            return element.is_displayed()
+        except Exception:
+            return False
+
+    def is_element_present(self, xpath: str) -> bool:
+        """
+        Check if an element is present in the DOM.
+
+        :param xpath: The XPath locator of the element.
+        :return: True if the element is present, False otherwise.
+        """
+        try:
+            self.find_element(xpath)
+            return True
+        except Exception:
+            return False
+
+    def is_element_enabled(self,xpath: str) -> bool:
+        """
+        Check if an element is enabled (e.g., input field, button).
+
+        :param xpath: The XPath locator of the element.
+        :return: True if the element is enabled, False otherwise.
+        """
+        try:
+            element = self.find_element(xpath)
+            return element.is_enabled()
+        except Exception:
+            return False

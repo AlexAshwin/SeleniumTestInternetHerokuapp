@@ -23,6 +23,7 @@ class LandingPage(BasePage):
     drag_and_drop = "//a[@href='/drag_and_drop']"
     dropdown = "//a[@href='/dropdown']"
     dynamic_content = "//a[@href='/dynamic_content']"
+    dynamic_control = "//a[@href='/dynamic_controls']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -182,3 +183,12 @@ class LandingPage(BasePage):
         from PageObject.DynamicContentPage import DynamicContentPage
         self.click(self.dynamic_content)
         return DynamicContentPage(self.driver)
+
+    def go_to_dynamic_control(self):
+        """
+        Navigate to the Dynamic Control page.
+        :return: DynamicControlPage object.
+        """
+        from PageObject.DynamicControlPage import DynamicControlPage
+        self.click(self.dynamic_control)
+        return DynamicControlPage(self.driver)

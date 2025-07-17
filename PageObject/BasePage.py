@@ -75,7 +75,7 @@ class BasePage:
                 EC.invisibility_of_element_located((By.XPATH,xpath))
             )
         except TimeoutException:
-            raise TimeoutException("Loader did not disappear within the timeout.")
+            raise TimeoutException(f"Element with XPath '{xpath}' did not disappear within the timeout.")
 
     def wait_for_element_visible(self, xpath: str, timeout: int = None):
         """
@@ -85,10 +85,13 @@ class BasePage:
         :param timeout: Optional timeout override.
         :return: WebElement if visible.
         """
-        wait_time = timeout if timeout is not None else self.timeout
-        return WebDriverWait(self.driver, wait_time).until(
-            EC.visibility_of_element_located((By.XPATH, xpath))
-        )
+        try:
+            wait_time = timeout if timeout is not None else self.timeout
+            return WebDriverWait(self.driver, wait_time).until(
+                EC.visibility_of_element_located((By.XPATH, xpath))
+            )
+        except TimeoutException:
+            raise TimeoutException(f"Element with XPath '{xpath}' not visible within the timeout.")
 
     def wait_for_element_clickable(self, xpath: str, timeout: int = None):
         """

@@ -4,7 +4,6 @@ from PageObject.LandingPage import LandingPage
 
 logger = logging.getLogger(__name__)
 
-@pytest.mark.order(2)
 @pytest.mark.usefixtures("browser_instance")
 class TestABTestingPage:
     @pytest.fixture(autouse=True)

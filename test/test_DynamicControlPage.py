@@ -4,7 +4,6 @@ from PageObject.LandingPage import LandingPage
 
 logger = logging.getLogger(__name__)
 
-@pytest.mark.order(14)
 @pytest.mark.usefixtures("browser_instance")
 class TestDynamicControlPage:
     @pytest.fixture(autouse=True)
@@ -80,7 +79,6 @@ class TestDynamicControlPage:
         with pytest.raises(Exception):  # Adjust if you want a specific exception type
             self.dynamic_control_page.send_text_to_input_field("Should fail")
 
-    @pytest.mark.smoke
     def test_enable_input_field_and_send_keys(self):
         """
         Verifies enabling the input field and sending text successfully.

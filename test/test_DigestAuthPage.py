@@ -13,7 +13,6 @@ with open(test_data_path) as f:
     test_data = json.load(f)
     cred_list = test_data['data']['basic_auth_credentials']
 
-@pytest.mark.order(9)
 @pytest.mark.usefixtures("browser_instance")
 class TestDigestAuthPage:
     @pytest.fixture(autouse=True)

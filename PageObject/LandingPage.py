@@ -24,6 +24,8 @@ class LandingPage(BasePage):
     dropdown = "//a[@href='/dropdown']"
     dynamic_content = "//a[@href='/dynamic_content']"
     dynamic_control = "//a[@href='/dynamic_controls']"
+    dynamic_loading = "//a[@href='/dynamic_loading']"
+    entry_ad = "//a[@href='/entry_ad']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -192,3 +194,21 @@ class LandingPage(BasePage):
         from PageObject.DynamicControlPage import DynamicControlPage
         self.click(self.dynamic_control)
         return DynamicControlPage(self.driver)
+
+    def go_to_dynamic_loading(self):
+        """
+        Navigate to the Dynamic Loading page.
+        :return: DynamicLoadingPage object.
+        """
+        from PageObject.DynamicLoadingPage import DynamicLoadingPage
+        self.click(self.dynamic_loading)
+        return DynamicLoadingPage(self.driver)
+
+    def go_to_entry_ad(self):
+        """
+        Navigate to the Entry Ad page.
+        :return: EntryAdPage object.
+        """
+        from PageObject.EntryAdPage import EntryAdPage
+        self.click(self.entry_ad)
+        return EntryAdPage(self.driver)

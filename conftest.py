@@ -30,9 +30,9 @@ def browser_instance(request) -> Generator[WebDriver, None, None]:
     grid_url = os.getenv("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
 
     options = webdriver.ChromeOptions()
-    options.add_argument("--disable-infobars")
-    options.add_argument("--start-maximized")
-    #options.add_argument("--headless=new")
+    #options.add_argument("--disable-infobars")
+    #options.add_argument("--start-maximized")
+    options.add_argument("--headless=new")
 
     options.add_experimental_option("prefs", {
         "credentials_enable_service": False,

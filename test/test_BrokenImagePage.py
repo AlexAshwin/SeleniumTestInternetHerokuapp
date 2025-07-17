@@ -5,7 +5,6 @@ import requests
 
 logger = logging.getLogger(__name__)
 
-@pytest.mark.order(5)
 @pytest.mark.usefixtures("browser_instance")
 class TestBrokenImagePage:
     """

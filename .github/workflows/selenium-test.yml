@@ -68,7 +68,7 @@ jobs:
         run: |
           pytest \
             --use_grid=true \
-            -m "not run_local"
+            -m "not run_local" \
             -v
 
       - name: Upload Full Report Folder (HTML + Screenshots)

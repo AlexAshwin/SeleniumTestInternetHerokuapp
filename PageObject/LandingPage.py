@@ -26,6 +26,7 @@ class LandingPage(BasePage):
     dynamic_control = "//a[@href='/dynamic_controls']"
     dynamic_loading = "//a[@href='/dynamic_loading']"
     entry_ad = "//a[@href='/entry_ad']"
+    exit_intent = "//a[@href='/exit_intent']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -212,3 +213,12 @@ class LandingPage(BasePage):
         from PageObject.EntryAdPage import EntryAdPage
         self.click(self.entry_ad)
         return EntryAdPage(self.driver)
+
+    def go_to_exit_intent(self):
+        """
+        Navigate to the Exit Intent page.
+        :return: ExitIntentPage object.
+        """
+        from PageObject.ExitIntentPage import ExitIntentPage
+        self.click(self.exit_intent)
+        return ExitIntentPage(self.driver)

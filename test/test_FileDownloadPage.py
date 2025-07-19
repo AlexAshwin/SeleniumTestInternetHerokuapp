@@ -6,6 +6,7 @@ from PageObject.LandingPage import LandingPage
 
 logger = logging.getLogger(__name__)
 
+@pytest.mark.run_local
 @pytest.mark.usefixtures("browser_instance")
 class TestExitIntentPage:
     """

@@ -68,9 +68,9 @@ def browser_instance(request) -> Generator[WebDriver, None, None]:
     download_path = download_dir()
     options = webdriver.ChromeOptions()
     options.add_argument("--log-level=3")
-    #options.add_argument("--disable-infobars")
-    #options.add_argument("--start-maximized")
-    options.add_argument("--headless=new")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--start-maximized")
+    #options.add_argument("--headless=new")
 
     options.add_experimental_option("prefs", {
         "credentials_enable_service": False,

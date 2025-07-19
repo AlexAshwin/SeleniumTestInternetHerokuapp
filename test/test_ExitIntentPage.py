@@ -5,7 +5,7 @@ from PageObject.LandingPage import LandingPage
 logger = logging.getLogger(__name__)
 
 #since following test cant be done in headless mode and requires pyautogui to move mouse, we skip it
-@pytest.mark.skip
+@pytest.mark.run_local
 @pytest.mark.usefixtures("browser_instance")
 class TestExitIntentPage:
     """

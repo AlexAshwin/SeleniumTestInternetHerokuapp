@@ -27,6 +27,7 @@ class LandingPage(BasePage):
     dynamic_loading = "//a[@href='/dynamic_loading']"
     entry_ad = "//a[@href='/entry_ad']"
     exit_intent = "//a[@href='/exit_intent']"
+    file_download = "//a[@href='/download']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -222,3 +223,12 @@ class LandingPage(BasePage):
         from PageObject.ExitIntentPage import ExitIntentPage
         self.click(self.exit_intent)
         return ExitIntentPage(self.driver)
+
+    def go_to_file_download(self):
+        """
+        Navigate to the File Download page.
+        :return: FileDownloadPage object.
+        """
+        from PageObject.FileDownloadPage import FileDownloadPage
+        self.click(self.file_download)
+        return FileDownloadPage(self.driver)

@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.run_local
 @pytest.mark.usefixtures("browser_instance")
-class TestExitIntentPage:
+class TestFileDownloadPage:
     """
     Test suite for Exit Intent page functionalities.
     """

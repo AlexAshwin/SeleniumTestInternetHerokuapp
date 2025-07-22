@@ -28,6 +28,7 @@ class LandingPage(BasePage):
     entry_ad = "//a[@href='/entry_ad']"
     exit_intent = "//a[@href='/exit_intent']"
     file_download = "//a[@href='/download']"
+    file_upload = "//a[@href='/upload']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -232,3 +233,12 @@ class LandingPage(BasePage):
         from PageObject.FileDownloadPage import FileDownloadPage
         self.click(self.file_download)
         return FileDownloadPage(self.driver)
+
+    def go_to_file_upload(self):
+        """
+        Navigate to the File Upload page.
+        :return: FileUploadPage object.
+        """
+        from PageObject.FileUploadPage import FileUploadPage
+        self.click(self.file_upload)
+        return FileUploadPage(self.driver)

@@ -30,6 +30,8 @@ class LandingPage(BasePage):
     file_download = "//a[@href='/download']"
     file_upload = "//a[@href='/upload']"
     floating_menu = "//a[@href='/floating_menu']"
+    form_authentication = "//a[@href='/login']"
+
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -252,3 +254,12 @@ class LandingPage(BasePage):
         from PageObject.FloatingMenuPage import FloatingMenuPage
         self.click(self.floating_menu)
         return FloatingMenuPage(self.driver)
+
+    def go_to_form_authentication(self):
+        """
+        Navigate to the Form Authentication page.
+        :return: FormAuthenticationPage object.
+        """
+        from PageObject.FormAuthenticationPage import FormAuthenticationPage
+        self.click(self.form_authentication)
+        return FormAuthenticationPage(self.driver)

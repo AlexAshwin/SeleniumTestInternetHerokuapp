@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.usefixtures("browser_instance")
 class TestFileUploadPage:
-    """clea
+    """
     Test suite for File Upload page functionalities.
     """
 

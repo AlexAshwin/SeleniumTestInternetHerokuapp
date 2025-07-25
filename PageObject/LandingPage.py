@@ -29,6 +29,7 @@ class LandingPage(BasePage):
     exit_intent = "//a[@href='/exit_intent']"
     file_download = "//a[@href='/download']"
     file_upload = "//a[@href='/upload']"
+    floating_menu = "//a[@href='/floating_menu']"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -242,3 +243,12 @@ class LandingPage(BasePage):
         from PageObject.FileUploadPage import FileUploadPage
         self.click(self.file_upload)
         return FileUploadPage(self.driver)
+
+    def go_to_floating_menu(self):
+        """
+        Navigate to the Floating Menu page.
+        :return: FloatingMenuPage object.
+        """
+        from PageObject.FloatingMenuPage import FloatingMenuPage
+        self.click(self.floating_menu)
+        return FloatingMenuPage(self.driver)

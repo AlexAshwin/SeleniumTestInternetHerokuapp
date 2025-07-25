@@ -76,9 +76,3 @@ pytest
 - Python 3.7+  
 - Google Chrome (or update WebDriver to match your browser)  
 - ChromeDriver installed and added to PATH  
-
-
----
-
-**📝 License**  
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

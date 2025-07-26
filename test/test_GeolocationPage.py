@@ -29,7 +29,7 @@ class TestGeolocationPage:
         """
         Verify the current location based on IP.
         """
-        ip_location = self.geolocation_page.get_ip_based_location()
+        ip_location = self.geolocation_page.get_browser_based_location()
         logger.info(f"IP-based location: {ip_location}")
 
         self.geolocation_page.click_where_am_i_button()

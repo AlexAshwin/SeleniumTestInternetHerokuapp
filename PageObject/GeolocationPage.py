@@ -1,3 +1,5 @@
+import time
+
 from PageObject.BasePage import BasePage
 import requests
 
@@ -28,17 +30,35 @@ class GeolocationPage(BasePage):
 
         self.click(self.where_am_i_button)
 
-    def get_ip_based_location(self):
+    def get_browser_based_location(self, timeout: int = 10):
         """
-        Fetch approximate location based on IP (not browser geolocation).
+        Use browser's navigator.geolocation to get current location.
+        Requires user to allow location access or a mocked location to be set.
+
+        :param timeout: Time in seconds to wait for geolocation result.
+        :return: Dict with latitude and longitude.
         """
-        response = requests.get('https://ipinfo.io/json')
-        if response.status_code == 200:
-            data = response.json()
-            lat, lon = data.get('loc').split(',')
-            return {'latitude': float(lat), 'longitude': float(lon)}
-        else:
-            raise Exception("Failed to retrieve geolocation data from IP")
+
+        # JS to asynchronously get geolocation and store it in window._geo
+        js_script = """
+        window._geo = null;
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            window._geo = {
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude
+            };
+        });
+        """
+        self.driver.execute_script(js_script)
+
+        # Wait and retrieve the result
+        for _ in range(timeout * 5):  # check every 0.1 sec
+            geo = self.driver.execute_script("return window._geo;")
+            if geo:
+                return geo
+            time.sleep(0.1)
+
+        raise TimeoutError("Failed to retrieve browser geolocation within timeout.")
 
     def fetch_location_from_website(self):
         """

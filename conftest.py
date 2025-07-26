@@ -79,7 +79,8 @@ def browser_instance(request) -> Generator[WebDriver, None, None]:
         "download.default_directory": download_path,
         "download.prompt_for_download": False,
         "directory_upgrade": True,
-        "safebrowsing.enabled": True
+        "safebrowsing.enabled": True,
+        "profile.default_content_setting_values.geolocation": 1
     })
 
     driver = (

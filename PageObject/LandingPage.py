@@ -32,6 +32,7 @@ class LandingPage(BasePage):
     floating_menu = "//a[@href='/floating_menu']"
     form_authentication = "//a[@href='/login']"
     geolocation = "//a[@href='/geolocation']"
+    horizontal_slider = "//a[@href='/horizontal_slider']"
 
 
     def __init__(self, driver):
@@ -273,3 +274,12 @@ class LandingPage(BasePage):
         from PageObject.GeolocationPage import GeolocationPage
         self.click(self.geolocation)
         return GeolocationPage(self.driver)
+
+    def go_to_horizontal_slider(self):
+        """
+        Navigate to the Horizontal Slider page.
+        :return: HorizontalSliderPage object.
+        """
+        from PageObject.HorizontalSliderPage import HorizontalSliderPage
+        self.click(self.horizontal_slider)
+        return HorizontalSliderPage(self.driver)

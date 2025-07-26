@@ -1,6 +1,7 @@
+import time
 from argparse import Action
 
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
@@ -106,14 +107,21 @@ class BasePage:
             EC.element_to_be_clickable((By.XPATH, xpath))
         )
 
-    def click(self, xpath: str):
+    def click(self, xpath: str, retries=2):
         """
-        Click on an element using XPath.
-
-        :param xpath: The XPath locator.
+        Click on an element safely with scroll and optional retries.
         """
-        element = self.wait_for_element_clickable(xpath)
-        element.click()
+        for attempt in range(retries):
+            try:
+                element = self.wait_for_element_clickable(xpath)
+                self.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+                element.click()
+                return
+            except ElementClickInterceptedException:
+                if attempt < retries - 1:
+                    time.sleep(1)
+                else:
+                    raise
 
     def enter_text(self, xpath: str, text: str):
         """

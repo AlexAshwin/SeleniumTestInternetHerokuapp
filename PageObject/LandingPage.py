@@ -31,6 +31,7 @@ class LandingPage(BasePage):
     file_upload = "//a[@href='/upload']"
     floating_menu = "//a[@href='/floating_menu']"
     form_authentication = "//a[@href='/login']"
+    geolocation = "//a[@href='/geolocation']"
 
 
     def __init__(self, driver):
@@ -263,3 +264,12 @@ class LandingPage(BasePage):
         from PageObject.FormAuthenticationPage import FormAuthenticationPage
         self.click(self.form_authentication)
         return FormAuthenticationPage(self.driver)
+
+    def go_to_geolocation(self):
+        """
+        Navigate to the Geolocation page.
+        :return: GeolocationPage object.
+        """
+        from PageObject.GeolocationPage import GeolocationPage
+        self.click(self.geolocation)
+        return GeolocationPage(self.driver)

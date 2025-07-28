@@ -33,6 +33,7 @@ class LandingPage(BasePage):
     form_authentication = "//a[@href='/login']"
     geolocation = "//a[@href='/geolocation']"
     horizontal_slider = "//a[@href='/horizontal_slider']"
+    hovers = "//a[@href='/hovers']"
 
 
     def __init__(self, driver):
@@ -283,3 +284,12 @@ class LandingPage(BasePage):
         from PageObject.HorizontalSliderPage import HorizontalSliderPage
         self.click(self.horizontal_slider)
         return HorizontalSliderPage(self.driver)
+
+    def go_to_hovers(self):
+        """
+        Navigate to the Hovers page.
+        :return: HoversPage object.
+        """
+        from PageObject.HoversPage import HoversPage
+        self.click(self.hovers)
+        return HoversPage(self.driver)

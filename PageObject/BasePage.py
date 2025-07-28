@@ -124,6 +124,16 @@ class BasePage:
                 else:
                     raise
 
+    def hover(self, xpath: str):
+        """
+        Hover over an element using XPath.
+
+        :param xpath: The XPath locator.
+        """
+        element = self.wait_for_element_visible(xpath)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+
     def enter_text(self, xpath: str, text: str):
         """
         Enter text into an input field using XPath.

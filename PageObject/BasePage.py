@@ -5,6 +5,7 @@ from selenium.common import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -220,6 +221,17 @@ class BasePage:
         target = self.wait_for_element_visible(target_xpath)
         actions = ActionChains(self.driver)
         actions.drag_and_drop(source, target).perform()
+
+
+    def move_slider(self, slider, offset):
+        """
+        Move a slider element by a specified offset.
+
+        :param slider: Webdriver element .
+        :param offset: The number of pixels to move the slider.
+        """
+        actions = ActionChains(self.driver)
+        actions.click_and_hold(slider).move_by_offset(offset, 0).release().perform()
 
     def dropdown_select(self, dropdown_xpath: str, option_text: str):
         """

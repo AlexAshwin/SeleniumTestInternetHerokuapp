@@ -312,15 +312,32 @@ class BasePage:
         except Exception:
             return False
 
-    def is_element_enabled(self,xpath: str) -> bool:
+    def is_element_enabled(self, xpath: str) -> bool:
         """
-        Check if an element is enabled (e.g., input field, button).
+        Check if an element is enabled. Handles both standard HTML elements and custom components like jQuery UI.
 
         :param xpath: The XPath locator of the element.
         :return: True if the element is enabled, False otherwise.
         """
         try:
             element = self.find_element(xpath)
-            return element.is_enabled()
+
+            # Case 1: Standard HTML element
+            if element.tag_name in ["button", "input", "select", "textarea"]:
+                return element.is_enabled()
+
+            # Case 2: Check aria-disabled
+            aria_disabled = element.get_attribute("aria-disabled")
+            if aria_disabled is not None:
+                return aria_disabled.lower() != "true"
+
+            # Case 3: Check for "ui-state-disabled" class
+            class_attr = element.get_attribute("class") or ""
+            if "ui-state-disabled" in class_attr:
+                return False
+
+            # Fallback: assume enabled
+            return True
+
         except Exception:
             return False

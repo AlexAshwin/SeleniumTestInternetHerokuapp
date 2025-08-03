@@ -34,6 +34,7 @@ class LandingPage(BasePage):
     geolocation = "//a[@href='/geolocation']"
     horizontal_slider = "//a[@href='/horizontal_slider']"
     hovers = "//a[@href='/hovers']"
+    jquery_ui_menu = "//a[@href='/jqueryui/menu']"
 
 
     def __init__(self, driver):
@@ -293,3 +294,12 @@ class LandingPage(BasePage):
         from PageObject.HoversPage import HoversPage
         self.click(self.hovers)
         return HoversPage(self.driver)
+
+    def go_to_jquery_ui_menu(self):
+        """
+        Navigate to the jQuery UI Menu page.
+        :return: JqueryUIMenuPage object.
+        """
+        from PageObject.JqueryUIMenuPage import JqueryUIMenuPage
+        self.click(self.jquery_ui_menu)
+        return JqueryUIMenuPage(self.driver)
